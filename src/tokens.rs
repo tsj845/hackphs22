@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(Clone)]
 pub enum FuncName {
     Add,
     Sub,
@@ -39,6 +40,7 @@ impl FuncName {
     }
 }
 
+#[derive(Clone)]
 pub enum Token {
     Function(FuncName),
     Literal(i32),
