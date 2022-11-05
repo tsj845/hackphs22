@@ -1,3 +1,12 @@
+mod tokens;
+mod text_processing;
+mod latex;
+
+use std::env::args;
+
+use text_processing::parse_input;
+
 fn main() {
-    println!("Hello, world!");
+    let argv: Vec<String> = Vec::from_iter(args());
+    println!("{:?}", parse_input(argv[1].clone()));
 }
