@@ -18,6 +18,9 @@ pub fn parse_input(input: String) -> Vec<Token> {
         }
 	// ignore spaces
         if chars[i] == ' ' {i+=1;continue;}
+	// create parenthesis
+	if chars[i] == '(' {fin.push(Token::GroupStart);i+=1;continue;}
+	if chars[i] == ')' {fin.push(Token::GroupEnd);i+=1;continue;}
 	// checks if the character is a digit in base 10 and
 	// creates a literal if it is
         if chars[i].is_digit(10) {
