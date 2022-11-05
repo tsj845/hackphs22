@@ -34,47 +34,46 @@ fn not_num(token: &Token) -> bool {//checks to see if the token entered is a num
 
 impl Operation {
     pub fn new(tokens: Vec<Token>) -> Operation {
-        let mut found_fn : bool = false;
         let mut i: usize = 0;
         let l: usize = tokens.len();
         loop {
+            
             if i >= l {
                 break;
             }
             let token: &Token = &tokens[i];
-            match token{
+            return match token{
                 Token::Literal(n) => {
-                    Box::new(Operation::Num(*n));
+                    Operation::Num(*n)
                 },
                 Token::Function(x) => match x {
                     FuncName::Add => {
-                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {println!("You input the wrong thing!")} else {
-                            Box::new(Operation::Add(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            Operation::Add(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i..l].to_vec() )),
-                            ));
-                            found_fn = true;
+                            )
                         }
                     },
-                    FuncName::Sub => {found_fn = true;},
-                    FuncName::Mul => {found_fn = true;},
-                    FuncName::Exp => {found_fn = true;},
-                    FuncName::Mod => {found_fn = true;},
-                    FuncName::Abs => {found_fn = true;},
+                    FuncName::Sub => {Operation::Num(0)},
+                    FuncName::Mul => {Operation::Num(0)},
+                    FuncName::Exp => {Operation::Num(0)},
+                    FuncName::Mod => {Operation::Num(0)},
+                    FuncName::Abs => {Operation::Num(0)},
                     FuncName::Root => {
                         
-                        found_fn = true;
+                        Operation::Num(0)
                     },
-                    FuncName::Invalid => {found_fn = false;},
+                    FuncName::Invalid => {Operation::Num(0)},
                     
-                    _ => {found_fn = false;}
+                    _ => {Operation::Num(0)}
                 },
                 
-                _ => {found_fn = false;}
+                _ => {Operation::Num(0)}
             };
             i += 1;
         }
-        return Operation::Num(0);
+        return Operation::Num(0)
     }
 }
 
