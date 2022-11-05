@@ -8,6 +8,11 @@ body {
     background-color: var(--backgroundcolor);
 }
 
+.label {
+    font-size: 24px;
+    font-family: arial, sans-serif;
+}
+
 .result {
     color: var(--fontcolor2);
     background-color: var(--backgroundcolor2);
@@ -18,6 +23,7 @@ body {
 
 #equation {
     height: 32px;
+    padding: 3px;
     background-color: var(--backgroundcolor);
     border-radius: 5px;
     overflow-x: hidden;
