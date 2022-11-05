@@ -25,6 +25,9 @@ pub fn to_latex(tree: Box<Operation>) -> String {
 	},
 	Operation::Mod(a, b) => {
 	    return format!("{} \\mod {}", to_latex(a), to_latex(b));
+	},
+	Operation::Abs(a) => {
+	    return format!("|{}|", to_latex(a));
 	}
     }
 }

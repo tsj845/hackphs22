@@ -12,11 +12,9 @@ pub enum Operation{
     Pow(Box<Operation>,Box<Operation>),
     Root(Box<Operation>,Box<Operation>),
     Mod(Box<Operation>,Box<Operation>),
-
-    /*
     Abs(Box<Operation>),
 
-    Sin(Box<Operation>),
+    /*Sin(Box<Operation>),
     Cos(Box<Operation>),
     Tan(Box<Operation>),
     Csc(Box<Operation>),
@@ -52,54 +50,56 @@ impl Operation {
             match token{
                 Token::Literal(_) => {},
                 Token::Function(x) => {
-		    if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
-			match x {
-			    FuncName::Add => {
-				return Operation::Add(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    },
-			    FuncName::Sub => {
-				return Operation::Subtract(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    },
-			    FuncName::Mul => {
-				return Operation::Multiply(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
+		    match x {
+			FuncName::Add => {
+			    return Operation::Add(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Sub => {
+			    return Operation::Subtract(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Mul => {
+			    return Operation::Multiply(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
 
-			    },
-			    FuncName::Div => {
-				return Operation::Divide(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    }
-			    FuncName::Exp => {
-				return Operation::Pow(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    },
-			    FuncName::Mod => {
-				return Operation::Mod(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    },
-			    FuncName::Abs => {},
-			    FuncName::Root => {
-				return Operation::Root(
-                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-				);
-			    },
-			    FuncName::Invalid => {}
+			},
+			FuncName::Div => {
+			    return Operation::Divide(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
 			}
+			FuncName::Exp => {
+			    return Operation::Pow(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Mod => {
+			    return Operation::Mod(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Abs => {
+			    return Operation::Abs(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Root => {
+			    return Operation::Root(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Invalid => {}
 		    }
                 },
                 _ => {}
