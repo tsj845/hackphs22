@@ -1,0 +1,59 @@
+body {
+    --primarycolor: black;
+    --secondarycolor: white;
+    --tertiarycolor: dimgray;
+    color: var(--secondarycolor);
+    background-color: var(--primarycolor);
+}
+
+#equation {
+    position: absolute;
+    width: 50vw;
+    height: 32px;
+    left: 50vw;
+    top: 1em;
+    transform: translate(-50%, 0%);
+    background-color: var(--primarycolor);
+    overflow-x: hidden;
+    border: var(--tertiarycolor) solid 1px;
+}
+
+#fmtter {
+    margin: 0px;
+}
+
+#equation .text {
+    position: relative;
+    vertical-align: middle;
+    height: 32px;
+    font-size: 28px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#equation .cursor {
+    animation-name: text-blink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: step-end;
+    animation-play-state: paused;
+}
+
+#equation .normal {
+    color: var(--secondarycolor);
+    background-color: var(--primarycolor);
+}
+
+@keyframes text-blink {
+    0% {
+        color: var(--primarycolor);
+        background-color: var(--secondarycolor);
+    }
+    50% {
+        color: var(--secondarycolor);
+        background-color: var(--primarycolor);
+    }
+    100% {
+        color: var(--primarycolor);
+        background-color: var(--secondarycolor);
+    }
+}
