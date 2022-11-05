@@ -1,9 +1,9 @@
 body {
-    --primarycolor: black;
-    --secondarycolor: white;
-    --tertiarycolor: dimgray;
-    color: var(--secondarycolor);
-    background-color: var(--primarycolor);
+    --backgroundcolor: #333333;
+    --fontcolor: #44aaff;
+    --outlinecolor: dimgray;
+    color: var(--fontcolor);
+    background-color: var(--backgroundcolor);
 }
 
 #MATH {
@@ -20,9 +20,9 @@ body {
     left: 50vw;
     top: 1em;
     transform: translate(-50%, 0%);
-    background-color: var(--primarycolor);
+    background-color: var(--backgroundcolor);
     overflow-x: hidden;
-    border: var(--tertiarycolor) solid 1px;
+    border: var(--outlinecolor) solid 1px;
 }
 
 #fmtter {
@@ -46,21 +46,21 @@ body {
 }
 
 #equation .normal {
-    color: var(--secondarycolor);
-    background-color: var(--primarycolor);
+    color: var(--fontcolor);
+    background-color: var(--backgroundcolor);
 }
 
 @keyframes text-blink {
     0% {
-        color: var(--primarycolor);
-        background-color: var(--secondarycolor);
+        color: var(--backgroundcolor);
+        background-color: var(--fontcolor);
     }
     50% {
-        color: var(--secondarycolor);
-        background-color: var(--primarycolor);
+        color: var(--fontcolor);
+        background-color: var(--backgroundcolor);
     }
     100% {
-        color: var(--primarycolor);
-        background-color: var(--secondarycolor);
+        color: var(--backgroundcolor);
+        background-color: var(--fontcolor);
     }
 }
