@@ -24,7 +24,7 @@ impl FuncName {
             "mul" => Self::Mul,
 	    "times" => Self::Mul,
             "multiply" => Self::Mul,
-            "div" => Selpf::Div,
+            "div" => Self::Div,
             "divide" => Self::Div,
 	    "by" => Self::Div,
 	    "over" => Self::Div,

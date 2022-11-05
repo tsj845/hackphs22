@@ -29,7 +29,7 @@ pub fn parse_input(input: String) -> Vec<Token> {
 	// create a function from natural language words
 	else if chars[i].is_alphabetic() {
             let f: usize = i;
-            while i < l && (chars[i].is_alphabetic() || chars[i] == '_') {i += 1;}
+            while i < l && (chars[i].is_alphabetic() || chars[i] == '_' || (chars[i] == ' ' && chars[i+1].is_alphabetic())) {i += 1;}
             let string: String = String::from_iter(&chars[f..i]);
             let fnameres: FuncName = FuncName::from_str(&string);
             match fnameres {
