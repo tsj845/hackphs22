@@ -1,0 +1,9 @@
+* HackPHS22 Project
+  Our program takes a regular phrase or mathematical expression, like
+  #+BEGIN_EXAMPLE
+  1 plus 1 * 2 to the 7
+  #+END_EXAMPLE
+  And translates it into a latex expression, like
+  #+BEGIN_SRC latex 
+  $1+1\times2^7$
+  #+END_SRC
