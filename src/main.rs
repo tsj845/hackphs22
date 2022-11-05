@@ -7,7 +7,11 @@ use std::env::args;
 
 use text_processing::parse_input;
 
+use crate::latex::to_latex;
+
 fn main() {
     let argv: Vec<String> = Vec::from_iter(args());
-    println!("{:?}", parse_input(argv[1].clone()));
+    let toks = parse_input(argv[1].clone());
+    println!("{:?}", toks);
+    println!("{}", to_latex(tree::make(toks)))
 }
