@@ -3,6 +3,9 @@ use crate::tree::Operation;
 pub fn to_latex(tree: &Box<Operation>) -> String {
     let latex = String::new();
     match tree {
+	Operation::Num(a) => {
+	    latex += format!("{}", a);
+	}
 	Operation::Add(a, b) => {
 	    latex += to_latex(a);
 	    latex += "+";
@@ -32,4 +35,5 @@ pub fn to_latex(tree: &Box<Operation>) -> String {
 	    latex += "}";
 	},
     }
+    return latex;
 }
