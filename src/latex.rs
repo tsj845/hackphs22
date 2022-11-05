@@ -4,7 +4,10 @@ pub fn to_latex(tree: Box<Operation>) -> String {
     match *tree {
 	Operation::Num(a) => {
 	    return format!("{}", a);
-	}
+	},
+	Operation::Grouping(a) => {
+	    return format!("({})", to_latex(a));
+	},
 	Operation::Add(a, b) => {
 	    return format!("{} + {}", to_latex(a), to_latex(b));
 	},
@@ -30,22 +33,22 @@ pub fn to_latex(tree: Box<Operation>) -> String {
 	    return format!("|{}|", to_latex(a));
 	},
 	Operation::Sin(a) => {
-	    return format!("\\sin({})", to_latex(a));
+	    return format!("\\sin{}", to_latex(a));
 	},
 	Operation::Cos(a) => {
-	    return format!("\\cos({})", to_latex(a));
+	    return format!("\\cos{}", to_latex(a));
 	},
 	Operation::Tan(a) => {
-	    return format!("\\tan({})", to_latex(a));
+	    return format!("\\tan{}", to_latex(a));
 	},
 	Operation::Sec(a) => {
-	    return format!("\\sec({})", to_latex(a));
+	    return format!("\\sec{}", to_latex(a));
 	},
 	Operation::Csc(a) => {
-	    return format!("\\csc({})", to_latex(a));
+	    return format!("\\csc{}", to_latex(a));
 	},
 	Operation::Cot(a) => {
-	    return format!("\\cot({})", to_latex(a));
+	    return format!("\\cot{}", to_latex(a));
 	},
     }
 }

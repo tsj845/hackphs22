@@ -4,6 +4,7 @@ use crate::tokens::{Token, FuncName};
 
 pub enum Operation{
     Num(i32),
+    Grouping(Box<Operation>),
     Add(Box<Operation>,Box<Operation>),
     Subtract(Box<Operation>,Box<Operation>),
     Multiply(Box<Operation>,Box<Operation>),
@@ -23,14 +24,24 @@ pub enum Operation{
     //Arctan(Box<Operation>),
 }
 
-fn not_num(token: &Token) -> bool {//checks to see if the token entered is a number or not
-    return match token { Token::Literal(_) => false, _=> true};
+fn double_paren(tokens: Vec<Token>) -> bool {
+    let mut parens = 0;
+    for token in tokens {
+	if token == Token::GroupStart{
+	    parens += 1;
+	    if parens >= 2 {
+		return true;
+	    }
+	}
+    }
+    return false;
 }
 
 impl Operation {
     pub fn new(tokens: Vec<Token>) -> Operation {
+	let mut tokens = tokens.clone();
         let mut i: usize = 0;
-        let l: usize = tokens.len();
+        let mut l: usize = tokens.len();
 	if l == 1 {
 	    match &tokens[0] {
 		Token::Literal(n) => {
@@ -39,6 +50,12 @@ impl Operation {
 		_ => panic!("You used a function without any values!")
 	    }
 	}
+	if tokens[0] == Token::GroupStart && tokens[l-1] == Token::GroupEnd && !double_paren(tokens.clone()) {
+	    return Operation::Grouping(
+		Box::new(Operation::new(tokens[1..l-1].to_vec()))
+	    );
+	}
+	let mut in_parens = 0;
         loop {
             if i >= l {
                 break;
@@ -47,6 +64,7 @@ impl Operation {
             match token{
                 Token::Literal(_) => {},
                 Token::Function(x) => {
+		    if in_parens != 0 {i+=1;continue}
 		    match x {
 			FuncName::Add => {
 			    return Operation::Add(
@@ -129,7 +147,8 @@ impl Operation {
 			FuncName::Invalid => {}
 		    }
                 },
-                _ => {}
+		Token::GroupStart => in_parens += 1,
+		Token::GroupEnd => in_parens -= 1,
             }
             i += 1;
         }
