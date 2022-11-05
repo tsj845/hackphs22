@@ -2,7 +2,7 @@
 // use std::cell::RefCell;
 use crate::tokens::Token;
 
-enum Operation{
+pub enum Operation{
     Num(i32),
 
     Add(Box<Operation>,Box<Operation>),
@@ -27,7 +27,7 @@ enum Operation{
     */
 }
 
-impl Operation {
+pub impl Operation {
     fn new() -> Operation {
         Operation()
     }
