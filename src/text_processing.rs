@@ -1,4 +1,4 @@
-use crate::tokens::Token;
+use crate::tokens::*;
 
 pub struct Processer {}
 
@@ -21,16 +21,22 @@ pub fn parse_input(input: String) -> Vec<Token> {
         } else {
             match chars[i] {
                 '+' => {
-                    fin.push(Token::Function(0));
+                    fin.push(Token::Function(Operation::Add));
                 },
                 '-' => {
-                    fin.push(Token::Function(1));
+                    fin.push(Token::Function(Operation::Sub));
                 },
                 '*' => {
-                    fin.push(Token::Function(2));
+                    fin.push(Token::Function(Operation::Mul));
                 },
                 '/' => {
-                    fin.push(Token::Function(3));
+                    fin.push(Token::Function(Operation::Div));
+                },
+                '^' => {
+                    fin.push(Token::Function(Operation::Exp));
+                },
+                '%' => {
+                    fin.push(Token::Function(Operation::Mod));
                 },
                 _ => {},
             };
