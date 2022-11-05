@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Claclulator</title>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+        <div id="equation">
+            <pre id="fmtter"><span class="text normal"></span><span class="text cursor"> </span><span class="text normal"></span></pre>
+        </div>
+        <p>$1+1$</p>
+        <script src="./js/index.js"></script>
+        <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                fontCache: 'global'
+              }
+            };
+            </script>
+            <script type="text/javascript" id="MathJax-script" async
+              src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+            </script>
+            <script></script>
+    </body>
+</html>
