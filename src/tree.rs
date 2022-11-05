@@ -30,6 +30,10 @@ pub enum Operation{
 
 fn not_num(token: &Token) -> bool {//checks to see if the token entered is a number or not
     return match token { Token::Literal(_) => false, _=> true};
+impl Operation {
+    pub fn new() -> Operation {
+        Operation::Num(0)
+    }
 }
 
 impl Operation {
