@@ -39,9 +39,9 @@ fn double_paren(tokens: Vec<Token>) -> bool {
 
 impl Operation {
     pub fn new(tokens: Vec<Token>) -> Operation {
-	let mut tokens = tokens.clone();
-        let mut i: usize = 0;
-        let l: usize = tokens.len();
+	let tokens = tokens.clone();
+	let mut i: usize = 0;
+	let l: usize = tokens.len();
 	if l == 1 {
 	    match &tokens[0] {
 		Token::Literal(n) => {
