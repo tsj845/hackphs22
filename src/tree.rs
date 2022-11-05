@@ -61,13 +61,43 @@ impl Operation {
 				);
 			    },
 			    FuncName::Sub => {
-				
+				return Operation::Subtract(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
 			    },
-			    FuncName::Mul => {},
-			    FuncName::Exp => {},
-			    FuncName::Mod => {},
+			    FuncName::Mul => {
+				return Operation::Multiply(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+
+			    },
+			    FuncName::Div {
+				return Operation::Divide(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+			    }
+			    FuncName::Exp => {
+				return Operation::Pow(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+			    },
+			    FuncName::Mod => {
+				return Operation::Mod(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+			    },
 			    FuncName::Abs => {},
-			    FuncName::Root => {},
+			    FuncName::Root => {
+				return Operation::Mod(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+			    },
 			    FuncName::Invalid => {},
 			    _ => {},
 			}
