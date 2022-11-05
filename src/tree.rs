@@ -60,12 +60,55 @@ impl Operation {
                             );
                         }
                     },
-                    FuncName::Sub => {},
-                    FuncName::Mul => {},
-                    FuncName::Exp => {},
-                    FuncName::Mod => {},
+                    FuncName::Sub => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Subtract(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
+                    FuncName::Mul => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Multiply(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
+                    FuncName::Div => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Divide(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
+                    FuncName::Exp => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Pow(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
+                    FuncName::Mod => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Mod(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
                     FuncName::Abs => {},
-                    FuncName::Root => {},
+                    FuncName::Root => {
+                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+                            return Operation::Mod(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
+                        }
+                    },
                     FuncName::Invalid => {},
                     _ => {},
                 },
