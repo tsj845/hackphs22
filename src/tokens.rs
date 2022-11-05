@@ -7,6 +7,18 @@ pub enum FuncName {
     Div,
     Exp,
     Mod,
+    Invalid,
+}
+
+impl FuncName {
+    pub fn from_str(string: &str) -> FuncName {
+        return match string.to_lowercase() {
+            "add" => Self::Add,
+            "sub" => Self::Sub,
+            "mod" => Self::Mod,
+            _ => Self::Invalid,
+        };
+    }
 }
 
 pub enum Token {
