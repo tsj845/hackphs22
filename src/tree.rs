@@ -32,3 +32,7 @@ impl Operation {
         Operation::Num(0)
     }
 }
+
+pub fn make(mut toks: Vec<Token>) -> Box<Operation> {
+    return Box::new(Operation::Num(0));
+}
