@@ -41,7 +41,7 @@ impl Operation {
     pub fn new(tokens: Vec<Token>) -> Operation {
 	let mut tokens = tokens.clone();
         let mut i: usize = 0;
-        let mut l: usize = tokens.len();
+        let l: usize = tokens.len();
 	if l == 1 {
 	    match &tokens[0] {
 		Token::Literal(n) => {
@@ -56,9 +56,15 @@ impl Operation {
 	    );
 	}
 	let mut in_parens = 0;
+	let mut pemdos_level = 0;
         loop {
             if i >= l {
-                break;
+		if pemdos_level == 4 {
+                    break;
+		} else {
+		    pemdos_level += 1;
+		    i = 0;
+		}
             }
             let token: &Token = &tokens[i];
             match token{
@@ -66,19 +72,24 @@ impl Operation {
                 Token::Function(x) => {
 		    if in_parens != 0 {i+=1;continue}
 		    match x {
+			// pemdos level 0
 			FuncName::Add => {
+			    if pemdos_level != 0 {i+=1;continue}
 			    return Operation::Add(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
 			FuncName::Sub => {
+			    if pemdos_level != 0 {i+=1;continue}
 			    return Operation::Subtract(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
+			// pemdos level 1
 			FuncName::Mul => {
+			    if pemdos_level != 1 {i+=1;continue}
 			    return Operation::Multiply(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
@@ -86,60 +97,74 @@ impl Operation {
 
 			},
 			FuncName::Div => {
+			    if pemdos_level != 1 {i+=1;continue}
 			    return Operation::Divide(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			}
+			// pemdos level 2
 			FuncName::Exp => {
+			    if pemdos_level != 2 {i+=1;continue}
 			    return Operation::Pow(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
-			FuncName::Mod => {
-			    return Operation::Mod(
-                                Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-			    );
-			},
-			FuncName::Abs => {
-			    return Operation::Abs(
-				Box::new(Operation::new(tokens[i+1..l].to_vec()))
-			    );
-			},
 			FuncName::Root => {
+			    if pemdos_level != 2 {i+=1;continue}
 			    return Operation::Root(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
+			// pemdos level 3
+			FuncName::Mod => {
+			    if pemdos_level != 3 {i+=1;continue}
+			    return Operation::Mod(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			// pemdos level 4
+			FuncName::Abs => {
+			    if pemdos_level != 4 {i+=1;continue}
+			    return Operation::Abs(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
 			FuncName::Sin => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Sin(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Cos => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Cos(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Tan => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Tan(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Sec => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Sec(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Csc => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Csc(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Cot => {
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Cot(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
