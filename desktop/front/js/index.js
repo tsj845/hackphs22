@@ -9,8 +9,10 @@ const cmidText = equationdiv.children[1];
 /**@type {HTMLSpanElement} */
 const crightText = equationdiv.children[2];
 
-/**@type {HTMLParagraphElement} */
-const mathp = document.getElementById("MATH");
+/**@type {HTMLSpanElement} */
+const expression = document.getElementById("latex-expression");
+/**@type {HTMLSpanElement}*/
+const code = document.getElementById("latex-code");
 
 let curpos = 0;
 let clength = 1;
@@ -73,7 +75,12 @@ function mvCur(delta) {
 
 function regenMath() {
     cp.exec(`cargo run "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
-        mathp.textContent = `$$${out.split("\n")[1]}$$`;
+        expression.textContent = `$$${out.split("\n")[1]}$$`;
+	code.textContent = `${out.split("\n")[1]}`;
+	if (out.split("\n")[1].length) {
+	    code.hidden = false;
+	    expression.hidden = false;	    
+	}
         MathJax.typesetPromise();
     });
 }

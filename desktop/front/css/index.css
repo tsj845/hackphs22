@@ -1,26 +1,25 @@
 body {
     --backgroundcolor: #333333;
+    --backgroundcolor2: #222222;
     --fontcolor: #44aaff;
+    --fontcolor2: white;
     --outlinecolor: dimgray;
     color: var(--fontcolor);
     background-color: var(--backgroundcolor);
 }
 
-#MATH {
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
+.result {
+    color: var(--fontcolor2);
+    background-color: var(--backgroundcolor2);
+    padding: 3px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #equation {
-    position: absolute;
-    width: 50vw;
     height: 32px;
-    left: 50vw;
-    top: 1em;
-    transform: translate(-50%, 0%);
     background-color: var(--backgroundcolor);
+    border-radius: 5px;
     overflow-x: hidden;
     border: var(--outlinecolor) solid 1px;
 }
