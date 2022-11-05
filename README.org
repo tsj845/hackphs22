@@ -2,7 +2,7 @@
   Our program takes a regular phrase or mathematical expression, like\\
   #begin
   1 plus 1 * 2 to the 7
-  #end
+  #end\\
   And translates it into a latex expression, like\\
   #begin_src latex 
   $1+1\times2^7$
