@@ -12,10 +12,22 @@ pub enum FuncName {
 
 impl FuncName {
     pub fn from_str(string: &str) -> FuncName {
-        return match string.to_lowercase() {
+        return match string.to_lowercase().as_str() {
             "add" => Self::Add,
+            "plus" => Self::Add,
             "sub" => Self::Sub,
+            "subtract" => Self::Sub,
+            "minus" => Self::Sub,
+            "mul" => Self::Mul,
+            "multiply" => Self::Mul,
+            "div" => Self::Div,
+            "divide" => Self::Div,
+            "pow" => Self::Div,
+            "power" => Self::Div,
             "mod" => Self::Mod,
+            "modulo" => Self::Mod,
+            "modulus" => Self::Mod,
+            "remainder" => Self::Mod,
             _ => Self::Invalid,
         };
     }
