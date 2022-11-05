@@ -36,41 +36,42 @@ impl Operation {
     pub fn new(tokens: Vec<Token>) -> Operation {
         let mut i: usize = 0;
         let l: usize = tokens.len();
+	if l == 1 {
+	    match &tokens[0] {
+		Token::Literal(n) => {
+		    return Operation::Num(*n);
+		}
+		_ => panic!("You used a function without any values!")
+	    }
+	}
         loop {
-            
             if i >= l {
                 break;
             }
             let token: &Token = &tokens[i];
-            return match token{
-                Token::Literal(n) => {
-                    Operation::Num(*n)
-                },
+            match token{
+                Token::Literal(n) => {},
                 Token::Function(x) => match x {
                     FuncName::Add => {
                         if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
-                            Operation::Add(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
+                            return Operation::Add(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                Box::new(Operation::new(tokens[i..l].to_vec() )),
-                            )
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+                            );
                         }
                     },
-                    FuncName::Sub => {Operation::Num(0)},
-                    FuncName::Mul => {Operation::Num(0)},
-                    FuncName::Exp => {Operation::Num(0)},
-                    FuncName::Mod => {Operation::Num(0)},
-                    FuncName::Abs => {Operation::Num(0)},
-                    FuncName::Root => {
-                        
-                        Operation::Num(0)
-                    },
-                    FuncName::Invalid => {Operation::Num(0)},
-                    
-                    _ => {Operation::Num(0)}
+                    FuncName::Sub => {},
+                    FuncName::Mul => {},
+                    FuncName::Exp => {},
+                    FuncName::Mod => {},
+                    FuncName::Abs => {},
+                    FuncName::Root => {},
+                    FuncName::Invalid => {},
+                    _ => {},
                 },
                 
-                _ => {Operation::Num(0)}
-            };
+                _ => {}
+            }
             i += 1;
         }
         return Operation::Num(0)
