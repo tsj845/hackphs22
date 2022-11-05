@@ -4,7 +4,6 @@ use crate::tokens::{Token, FuncName};
 
 pub enum Operation{
     Num(i32),
-
     Add(Box<Operation>,Box<Operation>),
     Subtract(Box<Operation>,Box<Operation>),
     Multiply(Box<Operation>,Box<Operation>),
@@ -13,17 +12,15 @@ pub enum Operation{
     Root(Box<Operation>,Box<Operation>),
     Mod(Box<Operation>,Box<Operation>),
     Abs(Box<Operation>),
-
-    /*Sin(Box<Operation>),
+    Sin(Box<Operation>),
     Cos(Box<Operation>),
     Tan(Box<Operation>),
     Csc(Box<Operation>),
     Sec(Box<Operation>),
     Cot(Box<Operation>),
-    Arcsin(Box<Operation>),
-    Arccos(Box<Operation>),
-    Arctan(Box<Operation>),
-    */
+    //Arcsin(Box<Operation>),
+    //Arccos(Box<Operation>),
+    //Arctan(Box<Operation>),
 }
 
 fn not_num(token: &Token) -> bool {//checks to see if the token entered is a number or not
@@ -97,6 +94,36 @@ impl Operation {
 			    return Operation::Root(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
+			FuncName::Sin => {
+			    return Operation::Sin(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Cos => {
+			    return Operation::Cos(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Tan => {
+			    return Operation::Tan(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Sec => {
+			    return Operation::Sec(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Csc => {
+			    return Operation::Csc(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			},
+			FuncName::Cot => {
+			    return Operation::Cot(
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Invalid => {}

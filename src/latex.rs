@@ -28,6 +28,24 @@ pub fn to_latex(tree: Box<Operation>) -> String {
 	},
 	Operation::Abs(a) => {
 	    return format!("|{}|", to_latex(a));
-	}
+	},
+	Operation::Sin(a) => {
+	    return format!("\\sin({})", to_latex(a));
+	},
+	Operation::Cos(a) => {
+	    return format!("\\cos({})", to_latex(a));
+	},
+	Operation::Tan(a) => {
+	    return format!("\\tan({})", to_latex(a));
+	},
+	Operation::Sec(a) => {
+	    return format!("\\sec({})", to_latex(a));
+	},
+	Operation::Csc(a) => {
+	    return format!("\\csc({})", to_latex(a));
+	},
+	Operation::Cot(a) => {
+	    return format!("\\cot({})", to_latex(a));
+	},
     }
 }
