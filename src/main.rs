@@ -1,6 +1,7 @@
 mod tokens;
 mod text_processing;
 mod latex;
+mod tree;
 
 use std::env::args;
 

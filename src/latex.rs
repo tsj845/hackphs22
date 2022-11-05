@@ -1,8 +1,8 @@
 use crate::tree::Operation;
 
-pub fn to_latex(tree: &Box<Operation>) -> String {
+pub fn to_latex(tree: Box<Operation>) -> String {
     let mut latex = String::new();
-    match tree {
+    match *tree {
 	Operation::Num(a) => {
 	    latex = format!("{}", a);
 	}
