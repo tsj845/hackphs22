@@ -10,6 +10,7 @@ pub enum Operation{
     Multiply(Box<Operation>,Box<Operation>),
     Divide(Box<Operation>,Box<Operation>),
     Pow(Box<Operation>,Box<Operation>),
+    Root(Box<Operation>,Box<Operation>),
     Mod(Box<Operation>,Box<Operation>),
 
     /*
