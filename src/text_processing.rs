@@ -21,22 +21,22 @@ pub fn parse_input(input: String) -> Vec<Token> {
         } else {
             match chars[i] {
                 '+' => {
-                    fin.push(Token::Function(Operation::Add));
+                    fin.push(Token::Function(FuncName::Add));
                 },
                 '-' => {
-                    fin.push(Token::Function(Operation::Sub));
+                    fin.push(Token::Function(FuncName::Sub));
                 },
                 '*' => {
-                    fin.push(Token::Function(Operation::Mul));
+                    fin.push(Token::Function(FuncName::Mul));
                 },
                 '/' => {
-                    fin.push(Token::Function(Operation::Div));
+                    fin.push(Token::Function(FuncName::Div));
                 },
                 '^' => {
-                    fin.push(Token::Function(Operation::Exp));
+                    fin.push(Token::Function(FuncName::Exp));
                 },
                 '%' => {
-                    fin.push(Token::Function(Operation::Mod));
+                    fin.push(Token::Function(FuncName::Mod));
                 },
                 _ => {},
             };
