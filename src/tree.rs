@@ -1,6 +1,6 @@
 // use std::rc::Rc;
 // use std::cell::RefCell;
-use crate::tokens::{Token, FuncName, self};
+use crate::tokens::{Token, FuncName};
 
 pub enum Operation{
     Num(i32),
@@ -50,7 +50,7 @@ impl Operation {
             }
             let token: &Token = &tokens[i];
             match token{
-                Token::Literal(n) => {},
+                Token::Literal(_) => {},
                 Token::Function(x) => {
 		    if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
 			match x {
@@ -93,13 +93,12 @@ impl Operation {
 			    },
 			    FuncName::Abs => {},
 			    FuncName::Root => {
-				return Operation::Mod(
+				return Operation::Root(
                                     Box::new(Operation::new(tokens[0..i].to_vec() )),
                                     Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 				);
 			    },
-			    FuncName::Invalid => {},
-			    _ => {},
+			    FuncName::Invalid => {}
 			}
 		    }
                 },
