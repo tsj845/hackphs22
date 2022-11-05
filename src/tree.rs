@@ -73,7 +73,7 @@ impl Operation {
 				);
 
 			    },
-			    FuncName::Div {
+			    FuncName::Div => {
 				return Operation::Divide(
                                     Box::new(Operation::new(tokens[0..i].to_vec() )),
                                     Box::new(Operation::new(tokens[i+1..l].to_vec() )),
