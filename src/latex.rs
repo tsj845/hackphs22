@@ -16,10 +16,10 @@ pub fn to_latex(tree: &Box<Operation>) -> String {
 	    latex = format!("{} \\times {}", to_latex(a), to_latex(b));
 	},
 	Operation::Divide(a, b) => {
-	    latex = format!("\\frac\{{}\}\{{}\}", to_latex(a), to_latex(b));
+	    latex = format!("\\frac{{{}}}{{{}}}", to_latex(a), to_latex(b));
 	},
 	Operation::Pow(a, b) => {
-	    latex = format!("{}^\{{}\}", to_latex(a), to_latex(b));
+	    latex = format!("{}^{{{}}}", to_latex(a), to_latex(b));
 	},
 	Operation::Mod(a, b) => {
 	    latex = format!("{} \\mod {}", to_latex(a), to_latex(b));
