@@ -1,3 +1,5 @@
+const cp = require("child_process");
+
 /**@type {HTMLDivElement} */
 const equationdiv = document.getElementById("equation").children[0];
 /**@type {HTMLSpanElement} */
@@ -6,6 +8,9 @@ const cleftText = equationdiv.children[0];
 const cmidText = equationdiv.children[1];
 /**@type {HTMLSpanElement} */
 const crightText = equationdiv.children[2];
+
+/**@type {HTMLParagraphElement} */
+const mathp = document.getElementById("MATH");
 
 let curpos = 0;
 let clength = 1;
@@ -66,6 +71,13 @@ function mvCur(delta) {
     }
 }
 
+function regenMath() {
+    cp.exec(`cargo run "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
+        mathp.textContent = `$$${out.split("\n")[1]}$$`;
+        MathJax.typesetPromise();
+    });
+}
+
 document.addEventListener("keyup", (e) => {
     let key = e.key;
     if (key.length > 1) {
@@ -75,6 +87,8 @@ document.addEventListener("keyup", (e) => {
             mvCur(-1);
         } else if (key === "ArrowRight") {
             mvCur(1);
+        } else if (key === "Enter") {
+            regenMath();
         }
         return;
     }
