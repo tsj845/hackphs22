@@ -51,34 +51,32 @@ impl Operation {
             let token: &Token = &tokens[i];
             match token{
                 Token::Literal(n) => {},
-                Token::Function(x) => match x {
-                    FuncName::Add => {
-                        if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
-                            return Operation::Add(//Num(match tokens[i-1]{Token::Literal(x)=>x,_=>{panic!("UNEXPECTED NAN TOKEN")}}
-                                Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-                            );
-                        }
-                    },
-                    FuncName::Sub => {},
-                    FuncName::Mul => {},
-                    FuncName::Exp => {},
-                    FuncName::Mod => {},
-                    FuncName::Abs => {},
-                    FuncName::Root => {},
-                    FuncName::Invalid => {},
-                    _ => {},
+                Token::Function(x) => {
+		    if i == 0 || not_num(&tokens[i-1]) || not_num(&tokens[i+1]) {panic!("You input the wrong thing!")} else {
+			match x {
+			    FuncName::Add => {
+				return Operation::Add(
+                                    Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                    Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+				);
+			    },
+			    FuncName::Sub => {
+				
+			    },
+			    FuncName::Mul => {},
+			    FuncName::Exp => {},
+			    FuncName::Mod => {},
+			    FuncName::Abs => {},
+			    FuncName::Root => {},
+			    FuncName::Invalid => {},
+			    _ => {},
+			}
+		    }
                 },
-                
                 _ => {}
             }
             i += 1;
         }
         return Operation::Num(0)
     }
-}
-
-
-pub fn make(mut toks: Vec<Token>) -> Box<Operation> {
-    return Box::new(Operation::Num(0));
 }
