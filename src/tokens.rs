@@ -7,6 +7,8 @@ pub enum FuncName {
     Div,
     Exp,
     Mod,
+    Abs,
+    Root,
     Invalid,
 }
 
@@ -28,6 +30,10 @@ impl FuncName {
             "modulo" => Self::Mod,
             "modulus" => Self::Mod,
             "remainder" => Self::Mod,
+            "abs" => Self::Abs,
+            "absval" => Self::Abs,
+            "root" => Self::Root,
+            "sqrt" => Self::Root,
             _ => Self::Invalid,
         };
     }
