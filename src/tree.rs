@@ -27,8 +27,8 @@ pub enum Operation{
     */
 }
 
-pub impl Operation {
-    fn new() -> Operation {
-        Operation()
+impl Operation {
+    pub fn new() -> Operation {
+        Operation::Num(0)
     }
 }
