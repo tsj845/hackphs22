@@ -25,7 +25,7 @@
             };
         </script>
         <script type="text/javascript" id="MathJax-script" async
-            src="../../mathjax-full/es5/tex-chtml.js">
+            src="../../node_modules/mathjax-full/es5/tex-chtml.js">
         </script>
         <!-- <div class="cube" style="--color:lime;--size:100px;">
             <div style="--color:red;"></div>
@@ -84,17 +84,19 @@
 
             torus.position = new THREE.Vector3();
 
+            const modi = 1e4;
+
             // let cstate = 0;
 
 			function animate() {
 				requestAnimationFrame( animate );
 
-                torus.rotation.x += 0.01*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
-                torus2.rotation.y += 0.01*2*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
-                torus3.rotation.x += 0.02*3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
-                torus3.rotation.y += 0.01*3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
-                torus4.rotation.x -= 0.02*0.3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
-                torus4.rotation.y -= 0.01*0.3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus.rotation.x += 0.01*Math.sign(delta1||0)*Math.sqrt(Math.abs((delta1||0)/modi));
+                torus2.rotation.y += 0.01*2*Math.sign(delta1||0)*Math.sqrt(Math.abs((delta1||0)/modi));
+                torus3.rotation.x += 0.02*3*Math.sign(delta1||0)*Math.sqrt(Math.abs((delta1||0)/modi));
+                // torus3.rotation.y += 0.01*3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus4.rotation.x += 0.02*5*Math.sign(delta1||0)*Math.sqrt(Math.abs((delta1||0)/modi));
+                // torus4.rotation.y += 0.01*0.3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
 
                 //// torus.rotation.x += 0.01;
                 //// torus2.rotation.y += 0.01;

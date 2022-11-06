@@ -11,6 +11,7 @@ pub fn parse_input(input: String) -> Vec<Token> {
     let mut i: usize = 0;
     // the length of the input
     let l: usize = chars.len();
+    let mut mkneg: f64 = 1.0;
     loop {
 	// return if we have reached the end of the input
         if i >= l {
@@ -26,7 +27,8 @@ pub fn parse_input(input: String) -> Vec<Token> {
         if chars[i].is_digit(10) {
             let f: usize = i;
             while i < l && (chars[i].is_digit(10) || chars[i] == '.') {i += 1;}
-            fin.push(Token::Literal(String::from_iter(&chars[f..i]).parse::<f64>().unwrap()));
+            fin.push(Token::Literal(mkneg * String::from_iter(&chars[f..i]).parse::<f64>().unwrap()));
+            mkneg = 1.0;
             i -= 1;
         }
 	// create a function from natural language words
@@ -48,7 +50,12 @@ pub fn parse_input(input: String) -> Vec<Token> {
                     fin.push(Token::Function(FuncName::Add));
                 },
                 '-' => {
-                    fin.push(Token::Function(FuncName::Sub));
+                    let l = fin.len();
+                    if l == 0 || match &fin[l-1] {Token::Function(_)=>true,Token::GroupStart=>true,_=>false} {
+                        mkneg = -1.0;
+                    } else {
+                        fin.push(Token::Function(FuncName::Sub));
+                    }
                 },
                 '*' => {
                     fin.push(Token::Function(FuncName::Mul));
