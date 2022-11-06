@@ -1,4 +1,6 @@
 use std::fmt;
+use std::cmp::{Eq,PartialEq};
+use std::f64;
 
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub enum FuncName {
@@ -68,10 +70,10 @@ impl FuncName {
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Eq)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum Token {
     Function(FuncName),
-    Literal(i32),
+    Literal(f64),
     GroupStart,
     GroupEnd
 }

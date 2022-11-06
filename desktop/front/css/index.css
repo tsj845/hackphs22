@@ -14,13 +14,22 @@ body {
     height: fit-content;
 }
 
-.result, #latex-expression > mjx-container > mjx-math {
+.result {
     color: var(--fontcolor2);
     background-color: var(--backgroundcolor2);
     padding: 3px;
     border-radius: 5px;
     height: fit-content;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#latex-expression > mjx-container > mjx-math {
+    color: var(--fontcolor);
+    background-color: var(--backgroundcolor2);
+    border-radius: 5px;
+    padding: 3px;
+    height: fit-content;
+    font-family: 'MJXTEX';
 }
 
 #latex-expression > *{
