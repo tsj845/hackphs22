@@ -8,16 +8,39 @@ body {
     background-color: var(--backgroundcolor);
 }
 
+.label {
+    font-size: 24px;
+    font-family: arial, sans-serif;
+    height: fit-content;
+}
+
 .result {
     color: var(--fontcolor2);
     background-color: var(--backgroundcolor2);
     padding: 3px;
     border-radius: 5px;
+    height: fit-content;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#latex-expression > mjx-container > mjx-math {
+    color: var(--fontcolor);
+    background-color: var(--backgroundcolor2);
+    border-radius: 5px;
+    padding: 3px;
+    height: fit-content;
+    font-family: 'MJXTEX';
+}
+
+#latex-expression > *{
+    margin: 0px;
+    display: inline;
+    text-align: inherit;
 }
 
 #equation {
     height: 32px;
+    padding: 3px;
     background-color: var(--backgroundcolor);
     border-radius: 5px;
     overflow-x: hidden;

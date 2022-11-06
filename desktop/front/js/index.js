@@ -1,5 +1,7 @@
 const cp = require("child_process");
 
+cp.execSync("cargo build --release");
+
 /**@type {HTMLDivElement} */
 const equationdiv = document.getElementById("equation").children[0];
 /**@type {HTMLSpanElement} */
@@ -13,6 +15,8 @@ const crightText = equationdiv.children[2];
 const expression = document.getElementById("latex-expression");
 /**@type {HTMLSpanElement}*/
 const code = document.getElementById("latex-code");
+/**@type {HTMLSpanElement}*/
+const result = document.getElementById("calculation-result");
 
 let curpos = 0;
 let clength = 1;
@@ -39,6 +43,7 @@ function insertCharacter(char, pos) {
  * @param {Number} pos
  */
 function deleteChar(pos) {
+    if (clength < 2) {return;}
     if (pos < curpos) {
         cleftText.textContent = cleftText.textContent.substring(0, pos) + cleftText.textContent.substring(pos+1);
     } else if (pos === curpos) {
@@ -74,13 +79,15 @@ function mvCur(delta) {
 }
 
 function regenMath() {
-    cp.exec(`cargo run "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
-        expression.textContent = `$$${out.split("\n")[1]}$$`;
-	code.textContent = `${out.split("\n")[1]}`;
-	if (out.split("\n")[1].length) {
-	    code.hidden = false;
-	    expression.hidden = false;	    
-	}
+    cp.exec(`./target/release/hackphs22 "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
+        expression.textContent = `$$${out.split("\n")[0]}$$`;
+        code.textContent = `${out.split("\n")[0]}`;
+	result.textContent = `${out.split("\n")[1]}`;
+        if (out.split("\n")[0].length) {
+            code.hidden = false;
+            expression.hidden = false;
+	    result.hidden = false;
+        }
         MathJax.typesetPromise();
     });
 }

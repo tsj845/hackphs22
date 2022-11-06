@@ -25,8 +25,8 @@ pub fn parse_input(input: String) -> Vec<Token> {
 	// creates a literal if it is
         if chars[i].is_digit(10) {
             let f: usize = i;
-            while i < l && chars[i].is_digit(10) {i += 1;}
-            fin.push(Token::Literal(String::from_iter(&chars[f..i]).parse().unwrap()));
+            while i < l && (chars[i].is_digit(10) || chars[i] == '.') {i += 1;}
+            fin.push(Token::Literal(String::from_iter(&chars[f..i]).parse::<f64>().unwrap()));
             i -= 1;
         }
 	// create a function from natural language words
