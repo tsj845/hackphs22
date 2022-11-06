@@ -96,75 +96,76 @@ impl Operation {
 			    );
 
 			},
+			// pemdos level 2
 			FuncName::Div => {
-			    if pemdos_level != 1 {i+=1;continue}
+			    if pemdos_level != 2 {i+=1;continue}
 			    return Operation::Divide(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			}
-			// pemdos level 2
+			// pemdos level 3
 			FuncName::Exp => {
-			    if pemdos_level != 2 {i+=1;continue}
+			    if pemdos_level != 3 {i+=1;continue}
 			    return Operation::Pow(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
 			FuncName::Root => {
-			    if pemdos_level != 2 {i+=1;continue}
+			    if pemdos_level != 3 {i+=1;continue}
 			    return Operation::Root(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
-			// pemdos level 3
+			// pemdos level 4
 			FuncName::Mod => {
-			    if pemdos_level != 3 {i+=1;continue}
+			    if pemdos_level != 4 {i+=1;continue}
 			    return Operation::Mod(
                                 Box::new(Operation::new(tokens[0..i].to_vec() )),
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
-			// pemdos level 4
+			// pemdos level 5
 			FuncName::Abs => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Abs(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Sin => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Sin(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Cos => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Cos(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Tan => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Tan(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Sec => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Sec(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Csc => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Csc(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
 			FuncName::Cot => {
-			    if pemdos_level != 4 {i+=1;continue}
+			    if pemdos_level != 5 {i+=1;continue}
 			    return Operation::Cot(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
@@ -178,5 +179,19 @@ impl Operation {
             i += 1;
         }
         return Operation::Num(0)
+    }
+    pub fn calculate(&self) -> f32 {
+	match self {
+	    Operation::Num(a) => return *a as f32,
+	    Operation::Grouping(a) => return a.calculate(),
+	    Operation::Add(a, b) => return a.calculate()+b.calculate(),
+	    Operation::Subtract(a, b) => return a.calculate()-b.calculate(),
+	    Operation::Multiply(a, b) => return a.calculate()*b.calculate(),
+	    Operation::Divide(a, b) => return a.calculate()/b.calculate(),
+	    Operation::Pow(a, b) => return a.calculate().powf(b.calculate()),
+	    Operation::Root(a, b) => return b.calculate().powf(1.0/a.calculate()),
+	    Operation::Mod(a, b) => return a.calculate()%b.calculate(),
+	    _ => panic!("Not implemented yet!"),
+	}
     }
 }

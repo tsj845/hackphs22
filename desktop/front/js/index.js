@@ -15,6 +15,8 @@ const crightText = equationdiv.children[2];
 const expression = document.getElementById("latex-expression");
 /**@type {HTMLSpanElement}*/
 const code = document.getElementById("latex-code");
+/**@type {HTMLSpanElement}*/
+const result = document.getElementById("calculation-result");
 
 let curpos = 0;
 let clength = 1;
@@ -77,11 +79,13 @@ function mvCur(delta) {
 
 function regenMath() {
     cp.exec(`./target/release/hackphs22 "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
-        expression.textContent = `$$${out.split("\n")[1]}$$`;
-        code.textContent = `${out.split("\n")[1]}`;
-        if (out.split("\n")[1].length) {
+        expression.textContent = `$$${out.split("\n")[0]}$$`;
+        code.textContent = `${out.split("\n")[0]}`;
+	result.textContent = `${out.split("\n")[1]}`;
+        if (out.split("\n")[0].length) {
             code.hidden = false;
-            expression.hidden = false;	    
+            expression.hidden = false;
+	    result.hidden = false;
         }
         MathJax.typesetPromise();
     });

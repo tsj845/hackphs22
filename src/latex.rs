@@ -1,7 +1,7 @@
 use crate::tree::Operation;
 
-pub fn to_latex(tree: Box<Operation>) -> String {
-    match *tree {
+pub fn to_latex(tree: &Operation) -> String {
+    match tree {
 	Operation::Num(a) => {
 	    return format!("{}", a);
 	},
