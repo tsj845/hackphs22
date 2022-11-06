@@ -5,6 +5,9 @@ pub fn to_latex(tree: &Operation) -> String {
 	Operation::Num(a) => {
 	    return format!("{}", a);
 	},
+	Operation::Var(b) => {
+		return format!("{}",b);
+	},
 	Operation::Grouping(a) => {
 	    return format!("({})", to_latex(a));
 	},
@@ -24,7 +27,11 @@ pub fn to_latex(tree: &Operation) -> String {
 	    return format!("{}^{{{}}}", to_latex(a), to_latex(b));
 	},
 	Operation::Root(a, b) => {
-	    return format!("\\sqrt[{}]{}", to_latex(a), to_latex(b));
+	    if Operation::Num(2.0) == **a {
+		return format!("\\sqrt{}", to_latex(b));
+	    } else {
+		return format!("\\sqrt[{}]{}", to_latex(a), to_latex(b));		
+	    }
 	},
 	Operation::Mod(a, b) => {
 	    return format!("{} \\mod {}", to_latex(a), to_latex(b));

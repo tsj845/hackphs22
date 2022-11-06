@@ -12,6 +12,7 @@ pub enum FuncName {
     Mod,
     Abs,
     Root,
+    Sqrt,
     Sin,
     Cos,
     Tan,
@@ -50,9 +51,15 @@ impl FuncName {
             "abs" => Self::Abs,
             "absval" => Self::Abs,
 	    "absolute value" => Self::Abs,
-            "root" => Self::Root,
-            "sqrt" => Self::Root,
-	    "square root" => Self::Root,
+            "root" => Self::Sqrt,
+            "sqrt" => Self::Sqrt,
+	    "square root" => Self::Sqrt,
+	    "nd root" => Self::Root,
+	    "ndroot" => Self::Root,
+	    "rd root" => Self::Root,
+	    "rdroot" => Self::Root,
+	    "st root" => Self::Root,
+	    "stroot" => Self::Root,
 	    "sin" => Self::Sin,
 	    "sine" => Self::Sin,
 	    "cos" => Self::Cos,
@@ -73,6 +80,7 @@ impl FuncName {
 #[derive(Copy, Clone, PartialEq)]
 pub enum Token {
     Function(FuncName),
+    Variable(char),
     Literal(f64),
     GroupStart,
     GroupEnd
@@ -83,6 +91,7 @@ impl fmt::Debug for Token {
         f.debug_tuple(match self {
 	    Token::Function(_) => "Func",
 	    Token::Literal(_)=>"Lit",
+        Token::Variable(_)=>"Var",
 	    Token::GroupStart => "(",
 	    Token::GroupEnd => ")",
 	}).field(&match self {
@@ -104,6 +113,7 @@ impl fmt::Debug for Token {
 		_ => "NOT SUPPORTED YET".to_owned()
 	    },
 	    Token::Literal(x) => format!("{x}"),
+        Token::Variable(c) => format!("{c}"),
 	    _ => "".to_owned()
 	}).finish()
     }
