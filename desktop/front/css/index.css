@@ -11,14 +11,22 @@ body {
 .label {
     font-size: 24px;
     font-family: arial, sans-serif;
+    height: fit-content;
 }
 
-.result {
+.result, #latex-expression > mjx-container > mjx-math {
     color: var(--fontcolor2);
     background-color: var(--backgroundcolor2);
     padding: 3px;
     border-radius: 5px;
+    height: fit-content;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#latex-expression > *{
+    margin: 0px;
+    display: inline;
+    text-align: inherit;
 }
 
 #equation {
