@@ -26,8 +26,11 @@ pub fn to_latex(tree: &Operation) -> String {
 	Operation::Pow(a, b) => {
 	    return format!("{}^{{{}}}", to_latex(&*a), to_latex(&*b));
 	},
+	Operation::Sqrt(a) => {
+	    return format!("\\sqrt{{{}}}", to_latex(&*a));
+	},
 	Operation::Root(a, b) => {
-	    return format!("\\sqrt[{}]{}", to_latex(&*a), to_latex(&*b));
+	    return format!("\\sqrt[{}]{{{}}}", to_latex(&*a), to_latex(&*b));
 	},
 	Operation::Mod(a, b) => {
 	    return format!("{} \\mod {}", to_latex(&*a), to_latex(&*b));

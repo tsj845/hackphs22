@@ -15,6 +15,7 @@ pub enum Operation{
     Divide(Box<Operation>,Box<Operation>),
     Pow(Box<Operation>,Box<Operation>),
     Root(Box<Operation>,Box<Operation>),
+    Sqrt(Box<Operation>),
     Mod(Box<Operation>,Box<Operation>),
     Abs(Box<Operation>),
     Sin(Box<Operation>),
@@ -138,8 +139,7 @@ impl Operation {
 			},
 			FuncName::Sqrt => {
 			    if pemdos_level != 3 {i+=1;continue}
-			    return Operation::Root(
-				Box::new(Operation::Num(2.0)),
+			    return Operation::Sqrt(
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			}
@@ -192,7 +192,7 @@ impl Operation {
 				if pemdos_level !=5 {i+=1;continue}
 
 				return Operation::Lim(
-					Box::new(Operation::new(vec![tokens[i+1]] )),
+					Box::new(Operation::new(vec!(tokens[i+1]) )),
 					Box::new(Operation::new(tokens[i+5..l].to_vec() ))
 				);
 			}
@@ -216,6 +216,7 @@ impl Operation {
 	    Operation::Divide(a, b) => return a.calculate()/b.calculate(),
 	    Operation::Pow(a, b) => return a.calculate().powf(b.calculate()),
 	    Operation::Root(a, b) => return b.calculate().powf(1.0/a.calculate()),
+	    Operation::Sqrt(a) => return a.calculate().powf(0.5),
 	    Operation::Mod(a, b) => return a.calculate()%b.calculate(),
 		Operation::Sin(a) => return a.calculate().sin(),
 		Operation::Cos(a) => return a.calculate().cos(),

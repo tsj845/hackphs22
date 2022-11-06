@@ -101,7 +101,7 @@ impl fmt::Debug for Token {
 	    Token::Function(_) => "Func",
 	    Token::Literal(_)=>"Lit",
         Token::Variable(_)=>"Var",
-	    Token::GroupStart => "(",
+        Token::GroupStart => "(",
 	    Token::GroupEnd => ")",
 	}).field(&match self {
 	    Token::Function(x) => match x {
@@ -119,7 +119,7 @@ impl fmt::Debug for Token {
 		&FuncName::Sec => "sec(".to_owned(),
 		&FuncName::Csc => "csc(".to_owned(),
 		&FuncName::Cot => "cot(".to_owned(),
-		_ => "NOT SUPPORTED YET".to_owned()
+        _ => "NOT SUPPORTED YET".to_owned()
 	    },
 	    Token::Literal(x) => format!("{x}"),
         Token::Variable(c) => format!("{c}"),
