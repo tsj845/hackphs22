@@ -1,3 +1,5 @@
+use std::f32::consts::PI;
+
 // use std::rc::Rc;
 // use std::cell::RefCell;
 use crate::tokens::{Token, FuncName};
@@ -24,6 +26,8 @@ pub enum Operation{
     //Arcsin(Box<Operation>),
     //Arccos(Box<Operation>),
     //Arctan(Box<Operation>),
+
+	Lim(Box<Operation>,Box<Operation>),
 }
 
 fn double_paren(tokens: Vec<Token>) -> bool {
@@ -64,7 +68,7 @@ impl Operation {
 	let mut pemdos_level = 0;
         loop {
             if i >= l {
-		if pemdos_level == 4 {
+		if pemdos_level == -1 {
                     break;
 		} else {
 		    pemdos_level += 1;
@@ -102,6 +106,13 @@ impl Operation {
 			    );
 
 			},
+			FuncName::Mod => {
+			    if pemdos_level != 1 {i+=1;continue}
+			    return Operation::Mod(
+                                Box::new(Operation::new(tokens[0..i].to_vec() )),
+                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
+			    );
+			},
 			// pemdos level 2
 			FuncName::Div => {
 			    if pemdos_level != 2 {i+=1;continue}
@@ -133,13 +144,7 @@ impl Operation {
 			    );
 			}
 			// pemdos level 4
-			FuncName::Mod => {
-			    if pemdos_level != 4 {i+=1;continue}
-			    return Operation::Mod(
-                                Box::new(Operation::new(tokens[0..i].to_vec() )),
-                                Box::new(Operation::new(tokens[i+1..l].to_vec() )),
-			    );
-			},
+			
 			// pemdos level 5
 			FuncName::Abs => {
 			    if pemdos_level != 5 {i+=1;continue}
@@ -183,6 +188,14 @@ impl Operation {
 				Box::new(Operation::new(tokens[i+1..l].to_vec()))
 			    );
 			},
+			FuncName::Lim => {
+				if pemdos_level !=5 {i+=1;continue}
+
+				return Operation::Lim(
+					Box::new(Operation::new(vec![tokens[i+1]] )),
+					Box::new(Operation::new(tokens[i+5..l].to_vec() ))
+				);
+			}
 			FuncName::Invalid => {}
 		    }
                 },
@@ -204,6 +217,25 @@ impl Operation {
 	    Operation::Pow(a, b) => return a.calculate().powf(b.calculate()),
 	    Operation::Root(a, b) => return b.calculate().powf(1.0/a.calculate()),
 	    Operation::Mod(a, b) => return a.calculate()%b.calculate(),
+		Operation::Sin(a) => return a.calculate().sin(),
+		Operation::Cos(a) => return a.calculate().cos(),
+		Operation::Tan(a) => {
+			if a.calculate() == PI/2.0{panic!("undefined");}
+			return a.calculate().tan();
+		},
+		Operation::Csc(a) => {
+			if a.calculate() == 0.0{println!("undefined");panic!();}
+			return 1.0/a.calculate().sin();
+		},
+		Operation::Sec(a) => {
+			if a.calculate() == PI/2.0{println!("undefined");panic!();}
+			return 1.0/a.calculate().cos();
+		},
+		Operation::Cot(a) => {
+			if a.calculate() == 0.0{println!("undefined");panic!();}
+			return 1.0/a.calculate().tan();
+		},
+		Operation::Abs(a) => return a.calculate().abs(),
 	    _ => panic!("Not implemented yet!"),
 	}
     }

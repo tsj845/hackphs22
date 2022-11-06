@@ -22,6 +22,8 @@ pub enum FuncName {
     //Arcsin,
     //Arccos,
     //Arctan,
+    Lim,
+
     Invalid,
 }
 
@@ -77,7 +79,9 @@ impl FuncName {
 	    "cosecant" => Self::Csc,
 	    "cot" => Self::Cot,
 	    "cotangent" => Self::Cot,
-            _ => Self::Invalid,
+        "limit as x approaches" => Self::Lim,
+        "lim as x approaches" => Self::Lim,
+        _ => Self::Invalid,
         };
     }
 }
