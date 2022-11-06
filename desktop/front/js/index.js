@@ -1,5 +1,7 @@
 const cp = require("child_process");
 
+cp.execSync("cargo build --release");
+
 /**@type {HTMLDivElement} */
 const equationdiv = document.getElementById("equation").children[0];
 /**@type {HTMLSpanElement} */
@@ -74,7 +76,7 @@ function mvCur(delta) {
 }
 
 function regenMath() {
-    cp.exec(`cargo run "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
+    cp.exec(`./target/release/hackphs22 "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
         expression.textContent = `$$${out.split("\n")[1]}$$`;
         code.textContent = `${out.split("\n")[1]}`;
         if (out.split("\n")[1].length) {
