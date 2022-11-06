@@ -78,16 +78,19 @@ function mvCur(delta) {
     }
 }
 
+let delta1 = 0;
+
 function regenMath() {
     cp.exec(`./target/release/hackphs22 "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
         expression.textContent = `$$${out.split("\n")[0]}$$`;
         code.textContent = `${out.split("\n")[0]}`;
-	result.textContent = `${out.split("\n")[1]}`;
+	    result.textContent = `${out.split("\n")[1]}`;
+        delta1 = Number(result.textContent);
         if (out.split("\n")[0].length) {
             code.hidden = false;
             expression.hidden = false;
-	    result.hidden = false;
-        }
+            result.hidden = false;
+            }
         MathJax.typesetPromise();
     });
 }

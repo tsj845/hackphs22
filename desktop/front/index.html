@@ -3,27 +3,150 @@
     <head>
         <title>Claclulator</title>
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/3d.css">
     </head>
     <body>
+        <canvas width="100vw" height="100vh" id="webglout"></canvas>
         <div id="equation">
             <pre id="fmtter"><span class="text normal"></span><span class="text cursor"> </span><span class="text normal"></span></pre>
         </div>
-	<p class="label">Latex code: <span id="latex-code" class="result" hidden="true"></span></p>
+        <p class="label">Latex code: <span id="latex-code" class="result" hidden="true"></span></p>
         <p class="label">Latex expression: <span id="latex-expression" class="" hidden="true"></span></p>
-	<p class="label">Result: <span id="calculation-result" class="result" hidden="true"></span></p>
+        <p class="label">Result: <span id="calculation-result" class="result" hidden="true"></span></p>
         <script src="./js/index.js"></script>
         <script>
             MathJax = {
-              tex: {
-                // inlineMath: [['$', '$'], ['\\(', '\\)']]
-              },
-              svg: {
-                fontCache: 'global'
-              }
+                tex: {
+                    // inlineMath: [['$', '$'], ['\\(', '\\)']]
+                },
+                svg: {
+                    fontCache: 'global'
+                }
             };
-            </script>
-            <script type="text/javascript" id="MathJax-script" async
-              src="../../mathjax-full/es5/tex-chtml.js">
-            </script>
+        </script>
+        <script type="text/javascript" id="MathJax-script" async
+            src="../../mathjax-full/es5/tex-chtml.js">
+        </script>
+        <!-- <div class="cube" style="--color:lime;--size:100px;">
+            <div style="--color:red;"></div>
+            <div style="--color:orange;"></div>
+            <div style="--color:yellow"></div>
+            <div style="--color:lime"></div>
+            <div style="--color:blue;"></div>
+            <div style="--color:purple;"></div>
+        </div> -->
+        <script src="js/three.js"></script>
+		<script>
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer({canvas:document.getElementById("webglout")});
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+            // let cubes = [];
+            // for (let i = 0; i < 25; i ++) {
+            //     const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            //     const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            //     const cube = new THREE.Mesh( geometry, material );
+            //     cube.position.x = -5 + (Math.floor(i/5) * 2.5);
+            //     cube.position.y = 5 - (Math.floor(i/5) * 2.5);
+            //     cubes.push(cube);
+            // }
+            // scene.add( ...cubes );
+            const geometry = new THREE.TorusGeometry( 7, 0.1, 16, 100 );
+            const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+            const torus = new THREE.Mesh( geometry, material );
+            scene.add( torus );
+            const geometry2 = new THREE.TorusGeometry( 6.8, 0.1, 16, 100 );
+            const material2 = new THREE.MeshBasicMaterial( { color: 0xddcc00 } );
+            const torus2 = new THREE.Mesh( geometry2, material2 );
+            torus.add( torus2 );
+            const geometry3 = new THREE.TorusGeometry( 6.6, 0.1, 16, 100 );
+            const material3 = new THREE.MeshBasicMaterial( { color: 0xff00ff } );
+            const torus3 = new THREE.Mesh( geometry3, material3 );
+            torus3.rotation.x = 90;
+            torus2.add( torus3 );
+            const geometry4 = new THREE.TorusGeometry( 6.4, 0.1, 16, 100 );
+            const material4 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            const torus4 = new THREE.Mesh( geometry4, material4 );
+            torus4.rotation.x = -90;
+            torus4.rotation.y = 90;
+            torus2.add( torus4 );
+
+            // const pg = new THREE.PlaneGeometry(100, 100, 10, 10);
+            // const mat = new THREE.MeshBasicMaterial({color:0xffffff});
+            // const plane = new THREE.Mesh(pg, mat);
+            // plane.rotation.x = (Math.PI/180) * -89;
+            // scene.add(plane);
+
+			camera.position.z = 15;
+
+            torus.position = new THREE.Vector3();
+
+            // let cstate = 0;
+
+			function animate() {
+				requestAnimationFrame( animate );
+
+                torus.rotation.x += 0.01*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus2.rotation.y += 0.01*2*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus3.rotation.x += 0.02*3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus3.rotation.y += 0.01*3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus4.rotation.x -= 0.02*0.3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+                torus4.rotation.y -= 0.01*0.3*Math.sign(delta1||0)*Math.sqrt(Math.abs(delta1||0));
+
+                //// torus.rotation.x += 0.01;
+                //// torus2.rotation.y += 0.01;
+                // torus2.rotation.x += 0.01;
+                // torus3.rotation.x += 0.01;
+                // torus3.rotation.x += 0.01;
+                //// torus3.rotation.x += 0.02;
+                //// torus3.rotation.y += 0.01;
+                // torus3.rotation.y += 0.02;
+
+                // for (cube of cubes) {
+                //     cube.rotation.x += 0.01;
+                //     cube.rotation.y += 0.01;
+                // }
+
+                // switch (cstate) {
+                //     case 0:
+                //         if (cubes[0].material.color.g === 0) {
+                //             cstate = 1;
+                //             break;
+                //         }
+                //         for (cube of cubes) {
+                //             cube.material.color.g -= 0.0078125;
+                //             cube.material.color.b += 0.0078125;
+                //         }
+                //         break;
+                //     case 1:
+                //         if (cubes[0].material.color.b === 0) {
+                //             cstate = 2;
+                //             break;
+                //         }
+                //         for (cube of cubes) {
+                //             cube.material.color.b -= 0.0078125;
+                //             cube.material.color.r += 0.0078125;
+                //         }
+                //         break;
+                //     case 2:
+                //         if (cubes[0].material.color.r === 0) {
+                //             cstate = 0;
+                //             break;
+                //         }
+                //         for (cube of cubes) {
+                //             cube.material.color.r -= 0.0078125;
+                //             cube.material.color.g += 0.0078125;
+                //         }
+                //         break;
+                // }
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+		</script>
     </body>
 </html>

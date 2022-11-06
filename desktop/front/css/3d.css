@@ -1,0 +1,56 @@
+.cube {
+    position: absolute;
+    transform-style: preserve-3d;
+    --size: 0px;
+    --color: black;
+    --halfsize: calc(var(--size)/2);
+    transform-origin: var(--halfsize), var(--halfsize);
+    perspective : 20000px;
+    --xrot: 15;
+    --yrot: -15;
+    width : 300px;
+    height : 300px;
+    left : calc(50vw - var(--halfsize));
+    top : calc(50vh - var(--halfsize));
+    /* transform: translateY(var(--halfsize)) translateX(var(--halfsize)) rotateX(calc(var(--xrot) * 1deg)) rotateY(calc(var(--yrot) * 1deg)); */
+    transform: rotateX(calc(var(--xrot) * 1deg)) rotateY(calc(var(--yrot) * 1deg));
+    /* perspective-origin: 0px, 0px, -500000px; */
+}
+
+.cube > * {
+    position: absolute;
+    background-color: var(--color);
+    width: var(--size);
+    height: var(--size);
+}
+
+.cube > *:nth-child(1) {
+    transform: rotateX(-90deg) translateZ(var(--halfsize));
+}
+
+.cube > *:nth-child(2) {
+    transform: rotateY(-90deg) translateZ(var(--halfsize));
+}
+
+.cube > *:nth-child(3) {
+    transform: rotateX(90deg) translateZ(var(--halfsize));
+}
+
+.cube > *:nth-child(4) {
+    transform: rotateY(90deg) translateZ(var(--halfsize));
+}
+
+.cube > *:nth-child(5) {
+    transform: translateZ(var(--halfsize));
+}
+
+.cube > *:nth-child(6) {
+    transform: translateZ(calc(-1 * var(--halfsize)));
+}
+
+#webglout {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
