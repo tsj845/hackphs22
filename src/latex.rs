@@ -5,6 +5,9 @@ pub fn to_latex(tree: &Operation) -> String {
 	Operation::Num(a) => {
 	    return format!("{}", a);
 	},
+	Operation::Var(b) => {
+		return format!("{}",b);
+	},
 	Operation::Grouping(a) => {
 	    return format!("({})", to_latex(a));
 	},

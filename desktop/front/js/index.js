@@ -43,6 +43,7 @@ function insertCharacter(char, pos) {
  * @param {Number} pos
  */
 function deleteChar(pos) {
+    if (clength < 2) {return;}
     if (pos < curpos) {
         cleftText.textContent = cleftText.textContent.substring(0, pos) + cleftText.textContent.substring(pos+1);
     } else if (pos === curpos) {

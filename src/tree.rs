@@ -4,6 +4,7 @@ use crate::tokens::{Token, FuncName};
 
 #[derive(PartialEq)]
 pub enum Operation{
+	Var(char),
     Num(f64),
     Grouping(Box<Operation>),
     Add(Box<Operation>,Box<Operation>),
@@ -47,7 +48,10 @@ impl Operation {
 	    match &tokens[0] {
 		Token::Literal(n) => {
 		    return Operation::Num(*n);
-		}
+		},
+		Token::Variable(c) => {
+			return Operation::Var(*c);
+		},
 		_ => panic!("You used a function without any values!")
 	    }
 	}
@@ -70,6 +74,7 @@ impl Operation {
             let token: &Token = &tokens[i];
             match token{
                 Token::Literal(_) => {},
+				Token::Variable(_)=>{},
                 Token::Function(x) => {
 		    if in_parens != 0 {i+=1;continue}
 		    match x {
