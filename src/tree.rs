@@ -3,7 +3,7 @@
 use crate::tokens::{Token, FuncName};
 
 pub enum Operation{
-    Num(i32),
+    Num(f64),
     Grouping(Box<Operation>),
     Add(Box<Operation>,Box<Operation>),
     Subtract(Box<Operation>,Box<Operation>),
@@ -177,6 +177,6 @@ impl Operation {
             }
             i += 1;
         }
-        return Operation::Num(0)
+        return Operation::Num(0.0)
     }
 }
