@@ -92,16 +92,21 @@ function regenMath() {
     });
 }
 
+document.addEventListener("keydown", (e) => {
+    let key = e.key;
+    if (key === "Backspace") {
+        deleteChar(curpos-1);
+    } else if (key === "ArrowLeft") {
+        mvCur(e.altKey ? -curpos : -1);
+    } else if (key === "ArrowRight") {
+        mvCur(e.altKey ? clength-curpos-1 : 1);
+    }
+});
+
 document.addEventListener("keyup", (e) => {
     let key = e.key;
     if (key.length > 1) {
-        if (key === "Backspace") {
-            deleteChar(curpos-1);
-        } else if (key === "ArrowLeft") {
-            mvCur(e.altKey ? -curpos : -1);
-        } else if (key === "ArrowRight") {
-            mvCur(e.altKey ? clength-curpos-1 : 1);
-        } else if (key === "Enter") {
+       if (key === "Enter") {
             regenMath();
         }
         return;
