@@ -24,7 +24,7 @@ body {
 }
 
 #latex-expression > mjx-container > mjx-math {
-    color: var(--fontcolor);
+    color: var(--fontcolor2);
     background-color: var(--backgroundcolor2);
     border-radius: 5px;
     padding: 3px;

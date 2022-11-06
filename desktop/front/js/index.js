@@ -68,13 +68,13 @@ function mvCur(delta) {
     }
     curpos += delta;
     if (delta > 0) {
-        cleftText.textContent = cleftText.textContent + cmidText.textContent;
-        cmidText.textContent = crightText.textContent[0];
-        crightText.textContent = crightText.textContent.substring(1);
+        cleftText.textContent = cleftText.textContent + cmidText.textContent + crightText.textContent.substring(0, delta-1);
+        cmidText.textContent = crightText.textContent[delta-1];
+        crightText.textContent = crightText.textContent.substring(delta);
     } else {
-        crightText.textContent = cmidText.textContent + crightText.textContent;
-        cmidText.textContent = cleftText.textContent[cleftText.textContent.length-1];
-        cleftText.textContent = cleftText.textContent.substring(0, cleftText.textContent.length-1);
+        crightText.textContent = cleftText.textContent.substring(cleftText.textContent.length+delta+1) + cmidText.textContent + crightText.textContent;
+        cmidText.textContent = cleftText.textContent[cleftText.textContent.length+delta];
+        cleftText.textContent = cleftText.textContent.substring(0, cleftText.textContent.length+delta);
     }
 }
 
@@ -98,9 +98,9 @@ document.addEventListener("keyup", (e) => {
         if (key === "Backspace") {
             deleteChar(curpos-1);
         } else if (key === "ArrowLeft") {
-            mvCur(-1);
+            mvCur(e.altKey ? -curpos : -1);
         } else if (key === "ArrowRight") {
-            mvCur(1);
+            mvCur(e.altKey ? clength-curpos-1 : 1);
         } else if (key === "Enter") {
             regenMath();
         }
