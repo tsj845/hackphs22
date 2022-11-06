@@ -76,11 +76,11 @@ function mvCur(delta) {
 function regenMath() {
     cp.exec(`cargo run "${cleftText.textContent+cmidText.textContent+crightText.textContent}"`, (_, out, err) => {
         expression.textContent = `$$${out.split("\n")[1]}$$`;
-	code.textContent = `${out.split("\n")[1]}`;
-	if (out.split("\n")[1].length) {
-	    code.hidden = false;
-	    expression.hidden = false;	    
-	}
+        code.textContent = `${out.split("\n")[1]}`;
+        if (out.split("\n")[1].length) {
+            code.hidden = false;
+            expression.hidden = false;	    
+        }
         MathJax.typesetPromise();
     });
 }
