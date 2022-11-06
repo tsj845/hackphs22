@@ -72,6 +72,7 @@ impl FuncName {
 pub enum Token {
     Function(FuncName),
     Literal(i32),
+    Variable(char),
     GroupStart,
     GroupEnd
 }
@@ -81,6 +82,7 @@ impl fmt::Debug for Token {
         f.debug_tuple(match self {
 	    Token::Function(_) => "Func",
 	    Token::Literal(_)=>"Lit",
+        Token::Variable(_)=>"Var",
 	    Token::GroupStart => "(",
 	    Token::GroupEnd => ")",
 	}).field(&match self {
@@ -102,6 +104,7 @@ impl fmt::Debug for Token {
 		_ => "NOT SUPPORTED YET".to_owned()
 	    },
 	    Token::Literal(x) => format!("{x}"),
+        Token::Variable(c) => format!("{c}"),
 	    _ => "".to_owned()
 	}).finish()
     }

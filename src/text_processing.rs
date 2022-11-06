@@ -36,7 +36,7 @@ pub fn parse_input(input: String) -> Vec<Token> {
             let string: String = String::from_iter(&chars[f..i]);
             let fnameres: FuncName = FuncName::from_str(&string);
             match fnameres {
-                FuncName::Invalid => {},
+                FuncName::Invalid => {for c in string.chars() {fin.push(Token::Variable(c))}},
                 _ => {fin.push(Token::Function(fnameres));}
             };
             i -= 1;
