@@ -192,7 +192,7 @@ impl Operation {
 				if pemdos_level !=5 {i+=1;continue}
 
 				return Operation::Lim(
-					Box::new(Operation::new(vec![tokens[i+1]] )),
+					Box::new(Operation::new(vec!(tokens[i+1]) )),
 					Box::new(Operation::new(tokens[i+5..l].to_vec() ))
 				);
 			}
