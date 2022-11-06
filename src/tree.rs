@@ -2,6 +2,7 @@
 // use std::cell::RefCell;
 use crate::tokens::{Token, FuncName};
 
+#[derive(PartialEq)]
 pub enum Operation{
     Num(f64),
     Grouping(Box<Operation>),
@@ -119,6 +120,13 @@ impl Operation {
                                 Box::new(Operation::new(tokens[i+1..l].to_vec() )),
 			    );
 			},
+			FuncName::Sqrt => {
+			    if pemdos_level != 3 {i+=1;continue}
+			    return Operation::Root(
+				Box::new(Operation::Num(2.0)),
+				Box::new(Operation::new(tokens[i+1..l].to_vec()))
+			    );
+			}
 			// pemdos level 4
 			FuncName::Mod => {
 			    if pemdos_level != 4 {i+=1;continue}
